@@ -1,0 +1,38 @@
+services:
+  - type: web
+    name: alzubaidi-showroom
+    runtime: docker
+    plan: starter
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/health
+    # SQLite ونسخها الاحتياطية وسر مشاركة المستندات تحفظ خارج نظام ملفات الحاوية المؤقت.
+    # الخطة مدفوعة لأن Render Free لا يدعم الأقراص الدائمة.
+    disk:
+      name: alzubaidi-showroom-data
+      mountPath: /app/server/data
+      sizeGB: 5
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: "4000"
+      - key: HOST
+        value: 0.0.0.0
+      # توقيت المعرض — بدونه تنحرف حسابات الاستحقاق والتأخير ٣ ساعات (الخوادم تعمل بـ UTC)
+      - key: TZ
+        value: Asia/Riyadh
+      # وكيل Render الموثوق — لا يُفعّل هذا الإعداد في التشغيل المباشر
+      - key: SHOWROOM_TRUST_PROXY
+        value: "1"
+      # بيانات الدخول تُدخل في لوحة الخدمة ولا تحفظ في Git
+      - key: SHOWROOM_AUTH_USER
+        sync: false
+      - key: SHOWROOM_AUTH_PASS
+        sync: false
+      # النسخ الاحتياطي التلقائي كل 6 ساعات مع الاحتفاظ بآخر 7 نسخ
+      - key: SHOWROOM_AUTO_BACKUP
+        value: "1"
+      - key: SHOWROOM_AUTO_BACKUP_HOURS
+        value: "6"
+      - key: SHOWROOM_AUTO_BACKUP_RETENTION
+        value: "7"

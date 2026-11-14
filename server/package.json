@@ -1,0 +1,21 @@
+{
+  "name": "car-showroom-server",
+  "version": "1.2.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch src/index.js",
+    "start": "node src/index.js",
+    "check": "node scripts/check.mjs",
+    "test": "node --test",
+    "whatsapp:set-test-contact": "node scripts/set-wa-test-contact.mjs"
+  },
+  "dependencies": {
+    "better-sqlite3": "^12.10.0",
+    "car-showroom-mvp": "file:..",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "qrcode-terminal": "^0.12.0",
+    "whatsapp-web.js": "^1.34.7"
+  }
+}

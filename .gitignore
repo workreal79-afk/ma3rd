@@ -1,0 +1,22 @@
+# الاعتماديات والبناء
+node_modules/
+client/dist/
+client/test/.build/
+
+# بيانات التشغيل الحقيقية: قاعدة البيانات، النسخ الاحتياطية، جلسة واتساب، سر المشاركة، كلمة مرور أول تشغيل
+server/data/
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+FIRST-RUN-ADMIN.txt
+.share-secret
+
+# أسرار وبيئة محلية
+.env
+.env.*
+!.env.example
+
+# ملفات مؤقتة
+*.tmp
+*.log
+.DS_Store

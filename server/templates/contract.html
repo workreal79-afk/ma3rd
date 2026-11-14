@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>عقد بيع سيارات بالأقساط وكفالة - معرض الزبيدي (مقاس A4)</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .no-print {
+            background: #fff;
+            padding: 25px;
+            border-radius: 12px;
+            max-width: 1000px;
+            margin: 0 auto 30px auto;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            border: 1px solid #e1e4e8;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .form-group label {
+            font-size: 13px;
+            font-weight: bold;
+            color: #444;
+        }
+
+        .form-group input {
+            padding: 9px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 14px;
+        }
+
+        .btn-print {
+            background: #1a365d;
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 17px;
+            font-weight: bold;
+            display: block;
+            width: 100%;
+            transition: background 0.3s;
+        }
+        
+        .btn-print:hover {
+            background: #112440;
+        }
+
+        /* -------------------------------------
+           تصميم الورقة مقاس A4 عمودي (210mm x 297mm)
+        -------------------------------------- */
+        .page-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .contract-page {
+            width: 210mm;
+            height: 297mm;
+            background: #fff;
+            border: 1.5px solid #000;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+            position: relative;
+            page-break-after: always;
+            page-break-inside: avoid;
+            font-family: 'Amiri', serif;
+            color: #000;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 18mm 18mm 15mm 18mm;
+            justify-content: space-between;
+        }
+
+        /* رأس الصفحة */
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .dates-box {
+            font-size: 15px;
+            font-weight: bold;
+            line-height: 1.8;
+            white-space: nowrap;
+        }
+
+        .exhibition-title {
+            text-align: center;
+            flex-grow: 1;
+            font-weight: bold;
+            line-height: 1.5;
+        }
+
+        .exhibition-title h2 {
+            margin: 0 0 5px 0;
+            font-size: 24px;
+            color: #0b1a30;
+        }
+
+        .exhibition-title p {
+            margin: 3px 0;
+            font-size: 14.5px;
+        }
+
+        .red-serial {
+            color: #d90429;
+            font-size: 24px;
+            font-family: monospace, sans-serif;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            top: 75px;
+        }
+
+        .contract-title {
+            text-align: center;
+            font-size: 19px;
+            font-weight: bold;
+            margin: 15px 0 20px 0;
+            color: #0b1a30;
+            letter-spacing: 1px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 15px 0 10px 0;
+            color: #0b1a30;
+        }
+
+        .flex-row {
+            display: flex;
+            align-items: flex-end;
+            margin-bottom: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 1.6;
+        }
+
+        .dots {
+            border-bottom: 1.5px dotted #000;
+            display: inline-block;
+            text-align: center;
+            padding: 0 5px;
+            color: #0b1a30;
+            min-height: 22px;
+            min-width: 0;
+            max-width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            vertical-align: bottom;
+            box-sizing: border-box;
+        }
+        .contract-page .flex-row > span { min-width: 0; }
+        .contract-page .paragraph-text { overflow-wrap: anywhere; }
+        .contract-page .fit-text { display:inline-block; max-width:100%; white-space:nowrap; overflow:hidden; vertical-align:bottom; }
+
+        .flex-grow {
+            flex-grow: 1;
+        }
+
+        .paragraph-text {
+            font-size: 15.5px;
+            line-height: 2.1;
+            font-weight: bold;
+            text-align: justify;
+            margin: 10px 0;
+        }
+
+        .signatures {
+            display: flex;
+            justify-content: space-around;
+            font-weight: bold;
+            font-size: 15px;
+            margin-top: 25px;
+            padding: 0 10px;
+        }
+
+        .signatures div {
+            text-align: center;
+        }
+
+        .divider-line {
+            border-top: 1.5px dashed #000;
+            margin: 20px 0 10px 0;
+        }
+
+        @media print {
+            body { background: white; margin: 0; padding: 0; }
+            .no-print { display: none !important; }
+            .page-container { gap: 0; display: block; }
+            .contract-page {
+                box-shadow: none;
+                margin: 0 auto;
+                border: 1px solid #000;
+                width: 210mm;
+                height: 297mm;
+                page-break-after: always;
+            }
+            @page {
+                size: 210mm 297mm portrait;
+                margin: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="no-print">
+    <h2 style="text-align: center; margin-top:0; color: #1a365d;">تعبئة عقد بيع سيارات بالأقساط وكفالة (مقاس A4 - نسخة واحدة)</h2>
+    <div class="form-grid">
+        <div class="form-group"><label>رقم المسلسل (الأحمر):</label><input type="text" id="serial" value="1000"></div>
+        <div class="form-group"><label>قيمة السيارة (رقماً):</label><input type="text" id="carPriceNum" value="50000"></div>
+        <div class="form-group"><label>قيمة السيارة (كتابة / قط):</label><input type="text" id="carPriceText" value="خمسون ألف ريال لا غير"></div>
+        
+        <div class="form-group"><label>المقدم (رقماً):</label><input type="text" id="downPaymentNum" value="10000"></div>
+        <div class="form-group"><label>المقدم (كتابة / قط):</label><input type="text" id="downPaymentText" value="عشرة آلاف ريال لا غير"></div>
+        
+        <div class="form-group"><label>الباقي (رقماً):</label><input type="text" id="remainingNum" value="40000"></div>
+        <div class="form-group"><label>الباقي (كتابة / قط):</label><input type="text" id="remainingText" value="أربعون ألف ريال لا غير"></div>
+        
+        <div class="form-group"><label>اسم المدين:</label><input type="text" id="debtorName" placeholder="اسم المدين"></div>
+        <div class="form-group"><label>اسم الدائن / للمدعو:</label><input type="text" id="creditorName" value="أحمد متعب علي الزبيدي"></div>
+        
+        <div class="form-group"><label>مقدار القسط الشهري:</label><input type="text" id="installmentAmount" value="٢٠٠٠ ريال"></div>
+        <div class="form-group" style="grid-column: span 2;">
+            <label>إبتداء من يوم/شهر وسنة:</label>
+            <div style="display: flex; gap: 10px;">
+                <input type="text" id="startMonth" value="٢٧/١٠" placeholder="يوم/شهر" style="flex: 2;" inputmode="numeric">
+                <input type="text" id="startYear" value="2026" placeholder="السنة" style="flex: 1;">
+            </div>
+        </div>
+        
+        
+        <div class="form-group"><label>رقم اللوحة:</label><input type="text" id="plateNumber" placeholder="أ ب ج ١٢٣٤"></div>
+        <div class="form-group"><label>موديل السيارة:</label><input type="text" id="carModel" placeholder="كامري"></div>
+        <div class="form-group"><label>سنة الصنع:</label><input type="text" id="carYear" placeholder="٢٠٢٦"></div>
+        <div class="form-group"><label>رقم الهيكل VIN:</label><input type="text" id="vehicleVin" placeholder="رقم الهيكل"></div>
+        
+        <div class="form-group"><label>اسم الكفيل:</label><input type="text" id="guarantorName" placeholder="اسم الكفيل الغارم"></div>
+        
+        <div class="form-group"><label>تاريخ التحرير (ميلادي):</label><input type="date" id="issueDate"></div>
+        <div class="form-group"><label>تاريخ التحرير (هجري):</label><input type="text" id="issueHijri" placeholder="١٤٤٧/٠٣/١٠"></div>
+    </div>
+    <button class="btn-print" onclick="generate()">اعتماد وإنشاء العقد</button>
+</div>
+
+<input type="hidden" id="sellerName">
+<div id="output" class="page-container"></div>
+
+<script>
+    document.getElementById('issueDate').valueAsDate = new Date();
+
+    function updateHijriField() {
+        const dateVal = document.getElementById('issueDate').value;
+        if (!dateVal) return;
+        const d = new Date(dateVal);
+        try {
+            const options = { calendar: 'islamic-umalqura', day: 'numeric', month: '2-digit', year: 'numeric' };
+            const formatter = new Intl.DateTimeFormat('en-US-u-ca-islamic-umalqura', options);
+            const parts = formatter.formatToParts(d);
+            let hDay = '', hMonth = '', hYear = '';
+            parts.forEach(p => {
+                if (p.type === 'day') hDay = p.value.padStart(2, '0');
+                if (p.type === 'month') hMonth = p.value.padStart(2, '0');
+                if (p.type === 'year') hYear = p.value;
+            });
+            if (hYear && hMonth && hDay) {
+                document.getElementById('issueHijri').value = `${toArabicDigits(hDay)} / ${toArabicDigits(hMonth.padStart(2, '0'))} / ${toArabicDigits(hYear)}`;
+                
+                // تحديث بداية الأقساط بصيغة يوم/شهر بالأرقام العربية، مع إبقاء خانة السنة مستقلة.
+                const datePartsGregorian = dateVal.split('-').map(Number);
+                if (datePartsGregorian.length === 3 && datePartsGregorian.every(Number.isFinite)) {
+                    const [, month, day] = datePartsGregorian;
+                    document.getElementById('startMonth').value = `${toArabicDigits(String(day).padStart(2, '0'))} / ${toArabicDigits(String(month).padStart(2, '0'))}`;
+                    document.getElementById('startYear').value = toArabicDigits(String(datePartsGregorian[0]));
+                }
+            }
+        } catch (e) {}
+    }
+
+    document.getElementById('issueDate').addEventListener('change', updateHijriField);
+    updateHijriField();
+    generate();
+
+
+function tafqeet(number) {
+    if (number === 0 || isNaN(number)) return "";
+    
+    const units = ["", "واحد", "اثنان", "ثلاثة", "أربعة", "خمسة", "ستة", "سبعة", "ثمانية", "تسعة", "عشرة",
+                   "إحدى عشر", "اثنا عشر", "ثلاثة عشر", "أربعة عشر", "خمسة عشر", "ستة عشر", "سبعة عشر", "ثمانية عشر", "تسعة عشر"];
+    const tens = ["", "", "عشرون", "ثلاثون", "أربعون", "خمسون", "ستون", "سبعون", "ثمانون", "تسعون"];
+    const hundreds = ["", "مائة", "مائتان", "ثلاثمائة", "أربعمائة", "خمسعمائة", "ستمائة", "سبعمائة", "ثمانمائة", "تسعمائة"];
+    
+    function convertGroup(n) {
+        let str = "";
+        let h = Math.floor(n / 100);
+        let rem = n % 100;
+        
+        if (h > 0) {
+            str += hundreds[h];
+        }
+        
+        if (rem > 0) {
+            if (str !== "") str += " و";
+            if (rem < 20) {
+                str += units[rem];
+            } else {
+                let u = rem % 10;
+                let t = Math.floor(rem / 10);
+                if (u > 0) {
+                    str += units[u] + " و" + tens[t];
+                } else {
+                    str += tens[t];
+                }
+            }
+        }
+        return str;
+    }
+
+    let n = Math.floor(number);
+    if (n === 0) return "";
+
+    let result = "";
+    
+    // Millions
+    let millions = Math.floor(n / 1000000);
+    n %= 1000000;
+    if (millions > 0) {
+        if (millions === 1) result += "مليون";
+        else if (millions === 2) result += "مليونان";
+        else if (millions >= 3 && millions <= 10) result += convertGroup(millions) + " ملايين";
+        else result += convertGroup(millions) + " مليون";
+    }
+
+    // Thousands
+    let thousands = Math.floor(n / 1000);
+    n %= 1000;
+    if (thousands > 0) {
+        if (result !== "") result += " و";
+        if (thousands === 1) result += "ألف";
+        else if (thousands === 2) result += "ألفان";
+        else if (thousands >= 3 && thousands <= 10) result += convertGroup(thousands) + " آلاف";
+        else result += convertGroup(thousands) + " ألف";
+    }
+
+    // Hundreds & Tens
+    if (n > 0) {
+        if (result !== "") result += " و";
+        result += convertGroup(n);
+    }
+
+    return result + " ريال لا غير";
+}
+
+    // حساب الباقي والتفقيط التلقائي
+    function calculateRemainingAndTafqeet() {
+        const carPrice = parseFloat(document.getElementById('carPriceNum').value) || 0;
+        const downPayment = parseFloat(document.getElementById('downPaymentNum').value) || 0;
+        const remaining = carPrice - downPayment;
+        
+        if (carPrice > 0) {
+            document.getElementById('carPriceText').value = tafqeet(carPrice);
+        }
+        if (downPayment >= 0) {
+            document.getElementById('downPaymentText').value = downPayment > 0 ? tafqeet(downPayment) : "لا يوجد";
+        }
+        
+        const remVal = remaining >= 0 ? remaining : 0;
+        document.getElementById('remainingNum').value = remVal;
+        document.getElementById('remainingText').value = remVal > 0 ? tafqeet(remVal) : "صفر ريال";
+        
+        generate();
+    }
+
+    // ربط كافة المدخلات بالتحديث التلقائي المباشر (Live Preview)
+    const inputs = document.querySelectorAll('.no-print input, .no-print select');
+    inputs.forEach(input => {
+        input.addEventListener('input', () => {
+            if (input.id === 'carPriceNum' || input.id === 'downPaymentNum') {
+                calculateRemainingAndTafqeet();
+            } else {
+                generate();
+            }
+        });
+        input.addEventListener('change', () => {
+            if (input.id === 'carPriceNum' || input.id === 'downPaymentNum') {
+                calculateRemainingAndTafqeet();
+            } else {
+                generate();
+            }
+        });
+    });
+
+
+    function toArabicDigits(str) {
+        return str.toString().replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d]);
+    }
+
+    function generate() {
+        const htmlValue = id => String(document.getElementById(id)?.value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&apos;'}[ch]));
+        const serialVal = htmlValue('serial');
+        const carPriceNum = htmlValue('carPriceNum');
+        const carPriceText = htmlValue('carPriceText');
+        const downPaymentNum = htmlValue('downPaymentNum');
+        const downPaymentText = htmlValue('downPaymentText');
+        const remainingNum = htmlValue('remainingNum');
+        const remainingText = htmlValue('remainingText');
+        
+        const debtorName = htmlValue('debtorName');
+        const creditorName = htmlValue('creditorName');
+        
+        const installmentAmount = htmlValue('installmentAmount');
+        const startMonth = htmlValue('startMonth');
+        const startYear = htmlValue('startYear');
+        
+                const plateNumber = htmlValue('plateNumber');
+        const carModel = htmlValue('carModel');
+        const carYear = htmlValue('carYear');
+        const vehicleVin = htmlValue('vehicleVin');
+        
+        const guarantorName = htmlValue('guarantorName');
+        const sellerName = htmlValue('sellerName');
+        
+        const issueDateVal = htmlValue('issueDate');
+        const issueHijriVal = htmlValue('issueHijri');
+
+        let iGregFormatted = '';
+        if (issueDateVal) {
+            const idObj = new Date(issueDateVal);
+            iGregFormatted = `${toArabicDigits(String(idObj.getDate()).padStart(2, '0'))} / ${toArabicDigits(String(idObj.getMonth() + 1).padStart(2, '0'))} / ${toArabicDigits(idObj.getFullYear())}`;
+        }
+
+        let dName = debtorName ? `&nbsp;&nbsp;${debtorName}&nbsp;&nbsp;` : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+        let cName = creditorName ? `&nbsp;&nbsp;${creditorName}&nbsp;&nbsp;` : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+        const hasGuarantor = guarantorName.trim().length > 0;
+
+        let cpNum = carPriceNum ? `&nbsp;&nbsp;${toArabicDigits(carPriceNum)}&nbsp;&nbsp;` : '................';
+        let cpText = carPriceText ? `&nbsp;&nbsp;${carPriceText}&nbsp;&nbsp;` : '................................................';
+        
+        let dpNum = downPaymentNum ? `&nbsp;&nbsp;${toArabicDigits(downPaymentNum)}&nbsp;&nbsp;` : '................';
+        let dpText = downPaymentText ? `&nbsp;&nbsp;${downPaymentText}&nbsp;&nbsp;` : '................................................';
+        
+        let remNum = remainingNum ? `&nbsp;&nbsp;${toArabicDigits(remainingNum)}&nbsp;&nbsp;` : '................';
+        let remText = remainingText ? `&nbsp;&nbsp;${remainingText}&nbsp;&nbsp;` : '................................................';
+
+        // حقول الكفالة تعتمد على وجود كفيل بعد تجهيز قيمة المتبقي.
+        // عند عدم وجود كفيل تبقى الخانات فارغة، مع بقاء قسم الكفالة ظاهرًا.
+        let gName = hasGuarantor ? `&nbsp;&nbsp;${guarantorName}&nbsp;&nbsp;` : '................................................';
+        let guaranteeAmount = hasGuarantor ? remNum : '................';
+        // اسم المستفيد من الكفالة هو البائع، وليس المشتري.
+        let guaranteeCustomer = hasGuarantor ? (sellerName.trim() ? `&nbsp;&nbsp;${sellerName}&nbsp;&nbsp;` : '................................................') : '................................................';
+        
+        let instAmt = installmentAmount ? `&nbsp;&nbsp;${toArabicDigits(installmentAmount)}&nbsp;&nbsp;` : '................';
+        let sMonth = startMonth ? `&nbsp;&nbsp;${toArabicDigits(String(startMonth).trim().replace(/\s*\/\s*/g, ' / ')).replace(/\//g, '&nbsp;/&nbsp;')}&nbsp;&nbsp;` : '..........';
+        let sYear = startYear ? `&nbsp;&nbsp;${toArabicDigits(startYear)}&nbsp;&nbsp;` : '..........';
+        
+                let pltNum = plateNumber ? `&nbsp;&nbsp;${toArabicDigits(plateNumber)}&nbsp;&nbsp;` : '................';
+        let cMod = carModel ? `&nbsp;&nbsp;${toArabicDigits(carModel)}&nbsp;&nbsp;` : '................';
+        let cYear = carYear ? `&nbsp;&nbsp;${toArabicDigits(carYear)}&nbsp;&nbsp;` : '................';
+        let cVin = vehicleVin ? `&nbsp;&nbsp;${String(vehicleVin).replace(/[^A-Za-z0-9]/g, "")}&nbsp;&nbsp;` : '................';
+
+        let html = `
+        <div class="contract-page">
+            <div>
+                <!-- Header -->
+                <div class="header-top">
+                    <div class="exhibition-title" style="text-align: right; flex-grow: 1;">
+                        <h2>*( معرض الزبيدي )*</h2>
+                        <p>لبيع وشراء السيارات</p>
+                        <p>لصاحبه / أحمد متعب علي الزبيدي</p>
+                        <p>تصريح مرور رقم 137 / م / ع</p>
+                        <p>س.ت / 4603001317 - القنفذة - المظيلف</p>
+                    </div>
+                    <div class="dates-box" style="text-align: left; padding-top: 15px;">
+                        التاريخ: &nbsp;<span class="dots" style="width: 110px; direction: ltr; text-align: center;">${issueHijriVal}</span> &nbsp;هـ<br>
+                        الموافق: &nbsp;<span class="dots" style="width: 100px; direction: ltr; text-align: center;">${iGregFormatted}</span> &nbsp;م
+                    </div>
+                    <div class="red-serial" style="position: absolute; left: 10px; top: 105px;">${toArabicDigits(serialVal)}</div>
+                </div>
+
+                <div class="contract-title">(( عقد بيع سيارات بالأقساط ))</div>
+                
+
+                <div class="flex-row">
+                    <span style="white-space: nowrap;">قيمة السيارة</span>
+                    <span class="dots" style="width: 140px; margin: 0 8px; text-align: center;">${cpNum}</span>
+                    <span style="white-space: nowrap;">( فقط )</span>
+                    <span class="dots flex-grow" style="margin: 0 8px; text-align: center;">${cpText}</span>
+                    <span style="white-space: nowrap;">ريال</span>
+                </div>
+
+                <div class="flex-row">
+                    <span style="white-space: nowrap;">المقدم</span>
+                    <span class="dots" style="width: 140px; margin: 0 8px; text-align: center;">${dpNum}</span>
+                    <span style="white-space: nowrap;">( فقط )</span>
+                    <span class="dots flex-grow" style="margin: 0 8px; text-align: center;">${dpText}</span>
+                    <span style="white-space: nowrap;">ريال</span>
+                </div>
+
+                <div class="flex-row">
+                    <span style="white-space: nowrap;">الباقي</span>
+                    <span class="dots" style="width: 140px; margin: 0 8px; text-align: center;">${remNum}</span>
+                    <span style="white-space: nowrap;">( فقط )</span>
+                    <span class="dots flex-grow" style="margin: 0 8px; text-align: center;">${remText}</span>
+                    <span style="white-space: nowrap;">ريال</span>
+                </div>
+
+                <div class="flex-row" style="margin-top: 10px;">
+                    <span style="white-space: nowrap;">أقر وأعترف أنا</span>
+                    <span class="dots flex-grow" style="margin: 0 8px;">${dName}</span>
+                    <span style="white-space: nowrap;">أن بذمتي للمدعو</span>
+                    <span class="dots flex-grow" style="margin-right: 8px;">${cName}</span>
+                </div>
+
+                <div class="flex-row">
+                    <span style="white-space: nowrap;">المبلغ الموضح أعلاه وقدره</span>
+                    <span class="dots flex-grow" style="margin: 0 8px;">${remText}</span>
+                    <span style="white-space: nowrap;">لا غير وذلك قيمة</span>
+                    <span class="dots flex-grow" style="margin-right: 8px;">${["سيارة", cMod, cYear].filter(Boolean).join(" ")}</span>
+                </div>
+
+                <div class="paragraph-text">
+                    أقوم بتسديد المبلغ المذكور على أقساط شهرية مقدار كل قسط <span class="dots" style="width: 130px;">${instAmt}</span> إبتداء من شهر <span class="dots" style="width: 100px;">${sMonth}</span> سنة <span class="dots" style="width: 90px;">${sYear}</span> م<br>
+                    وتستمر الأقساط متوالية دون إنقطاع حتى سداد كامل المبلغ . وقد استلمت السيارة بواسطة <strong>معرض الزبيدي</strong> جديدة وبحالتها الراهنة . رقم اللوحة <span class="dots" style="width: 100px;">${pltNum}</span> وموديلها <span class="dots" style="width: 100px;">${cMod}</span> وسنة الصنع <span class="dots" style="width: 85px;">${cYear}</span> ورقم الهيكل <span class="dots" style="width: 160px;">${cVin}</span>
+                </div>
+
+                <div class="signatures" style="margin-top: 20px;">
+                    <div>شاهد</div>
+                    <div>شاهد</div>
+                    <div>صحيح المقر بما فيه</div>
+                </div>
+            </div>
+
+            <div class="divider-line"></div>
+
+            <div style="margin-bottom: 10px;">
+                <div class="section-title">(( كفالـــــــة ))</div>
+
+                <div class="flex-row" style="margin-top: 10px;">
+                    <span style="white-space: nowrap;">أكفل أنا</span>
+                    <span class="dots flex-grow" style="margin: 0 8px;">${gName}</span>
+                    <span style="white-space: nowrap;">الموضح اسمه أعلاه</span>
+                </div>
+
+                <div class="flex-row">
+                    <span style="white-space: nowrap;">في المبلغ المشار إليه وقدره</span>
+                    <span class="dots" style="width: 160px; margin: 0 8px;">${guaranteeAmount}</span>
+                    <span style="white-space: nowrap;">للمدعو</span>
+                    <span class="dots flex-grow" style="margin-right: 8px;">${guaranteeCustomer}</span>
+                </div>
+
+                <div class="paragraph-text" style="font-size: 15px; line-height: 2.0; margin-top: 10px;">
+                    كفالة غرم وأداء والتزام في حالة الحياة والموت وأقوم بتسديد أي قسط يتأخر عن موعده ويعتبر المبلغ بذمتي كاملاً في حالة عدم التسديد بأي وجه من الوجوه وعلى ذلك أوقع .
+                </div>
+
+                <div class="signatures" style="margin-top: 35px;">
+                    <div>شاهد</div>
+                    <div>شاهد</div>
+                    <div>صحيح الكفيل</div>
+                    <div>ختم المعرض</div>
+                </div>
+            </div>
+        </div>
+        `;
+
+        const output = document.getElementById('output');
+        output.innerHTML = html;
+        // Fit long values inside their own printed field instead of letting them overlap the next field.
+        const fitText = (root = output) => {
+            root.querySelectorAll('.dots').forEach(el => {
+                el.style.fontSize = '';
+                const base = parseFloat(getComputedStyle(el).fontSize) || 16;
+                let size = base;
+                const min = Math.max(8, base * 0.58);
+                while (size > min && el.scrollWidth > el.clientWidth + 1) {
+                    size -= 0.25;
+                    el.style.fontSize = size + 'px';
+                }
+            });
+        };
+        fitText();
+        requestAnimationFrame(() => fitText());
+    }
+    window.addEventListener('beforeprint', () => {
+        document.querySelectorAll('.contract-page .dots').forEach(el => {
+            el.style.fontSize = '';
+            const base = parseFloat(getComputedStyle(el).fontSize) || 16;
+            let size = base;
+            const min = Math.max(8, base * 0.58);
+            while (size > min && el.scrollWidth > el.clientWidth + 1) {
+                size -= 0.25;
+                el.style.fontSize = size + 'px';
+            }
+        });
+    });
+</script>
+</body>
+</html>

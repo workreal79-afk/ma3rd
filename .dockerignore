@@ -1,0 +1,14 @@
+# مهم: بدون هذا الملف، COPY server ./server و COPY client ./client
+# ينسخان node_modules من جهاز المطور إلى داخل الصورة، فيتم استبدال
+# الحزم المبنية للينكس (وأهمها better-sqlite3) بنسخ ويندوز/ماك → انهيار عند التشغيل.
+.git
+.gitignore
+**/node_modules
+client/dist
+client/test/.build
+server/data
+*.log
+npm-debug.log*
+.DS_Store
+arena-qa
+test-results
