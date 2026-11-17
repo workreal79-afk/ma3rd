@@ -12,6 +12,12 @@ if errorlevel 1 (
   exit /b 1
 )
 
+node -e "require('http').get('http://localhost:4000/api/health',r=>process.exit(r.statusCode===200?0:1)).on('error',()=>process.exit(1))" >nul 2>nul
+if not errorlevel 1 (
+  start "" "http://localhost:4000"
+  exit /b 0
+)
+
 if not exist "node_modules" (
   echo [1/3] تثبيت حزم المشروع الرئيسية...
   call npm install
